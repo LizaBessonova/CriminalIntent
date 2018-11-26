@@ -13,58 +13,41 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class CrimeFragment extends Fragment {
 
     private Crime mCrime;
-    private EditText mTitleField;
-    private EditText mAuthorField;
+    private TextView mAuthorTextView;
+    private TextView mResponsibleTextView;
+    private TextView mThemeTextView;
+    private TextView mCategoryTextView;
     private Button mDateButton;
     private CheckBox mSolvedCheckBox;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mCrime = new Crime();
+        UUID crimeId = (UUID) getActivity().getIntent()
+                .getSerializableExtra(CrimeActivity.EXTRA_CRIME_ID);
+        mCrime = CrimeLab.get(getActivity()).getCrime(crimeId);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_crime, container, false);
 
-        mTitleField = (EditText)v.findViewById(R.id.crime_title);
-        mTitleField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(
-                    CharSequence s, int start, int count, int after) {
-            }
-            @Override
-            public void onTextChanged(
-                    CharSequence s, int start, int before, int count) {
-                mCrime.setTitle(s.toString());
-            }
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
+        mAuthorTextView = (TextView)v.findViewById(R.id.crime_author);
+        mAuthorTextView.setText(mCrime.getAuthor());
 
-        mAuthorField = (EditText)v.findViewById(R.id.crime_author);
-        mAuthorField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(
-                    CharSequence s, int start, int count, int after) {
-            }
-            @Override
-            public void onTextChanged(
-                    CharSequence s, int start, int before, int count) {
-                mCrime.setAuthor(s.toString());
-            }
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
+        mResponsibleTextView = (TextView)v.findViewById(R.id.crime_responsible);
+        mResponsibleTextView.setText(mCrime.getResponsible());
+
+        mThemeTextView = (TextView)v.findViewById(R.id.crime_theme);
+        mThemeTextView.setText(mCrime.getTheme());
 
         mDateButton = (Button)v.findViewById(R.id.crime_date);
         //mDateButton.setText(mCrime.getDate().toString());
@@ -72,6 +55,7 @@ public class CrimeFragment extends Fragment {
         updateDateAndTime();
 
         mSolvedCheckBox = (CheckBox)v.findViewById(R.id.crime_solved);
+        mSolvedCheckBox.setChecked(mCrime.isSolved());
         mSolvedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {

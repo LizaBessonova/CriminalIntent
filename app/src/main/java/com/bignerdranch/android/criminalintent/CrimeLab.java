@@ -18,10 +18,12 @@ public class CrimeLab {
     }
     private CrimeLab(Context context){
         mCrimes = new ArrayList<>();
-        for (int i=0;i<9;i++){
+        for (int i=0;i<10;i++){
             Crime crime = new Crime();
-            crime.setTitle("Name #"+i);
             crime.setAuthor("Author "+i);
+            crime.setResponsible("Responsible #"+i);
+            crime.setTheme("Theme #"+i);
+            crime.setCategory("Category #"+i);
             crime.setSolved(i%2==0);
             mCrimes.add(crime);
         }

@@ -1,7 +1,7 @@
 package com.bignerdranch.android.criminalintent;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -37,33 +36,35 @@ public class CrimeListFragment extends Fragment {
     }
 
     public  class CrimeHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView mTitleTextView;
+        private TextView mResponsibleTextView;
         private TextView mAuthorTextView;
-        private TextView mDateTextView;
+        private TextView mThemeTextView;
+        private TextView mCategoryTextView;
         private CheckBox mSolvedCheckBox;
         private Crime mCrime;
 
         public void bindCrime(Crime crime){
             mCrime = crime;
-            mTitleTextView.setText(mCrime.getTitle());
+            mResponsibleTextView.setText(mCrime.getResponsible());
             mAuthorTextView.setText(mCrime.getAuthor());
-            mDateTextView.setText(mCrime.getDate().toString());
+            mThemeTextView.setText(mCrime.getTheme());
+            mCategoryTextView.setText(mCrime.getCategory());
             mSolvedCheckBox.setChecked(mCrime.isSolved());
         }
 
         public CrimeHolder(View itemView){
             super(itemView);
             itemView.setOnClickListener(this);
-            mTitleTextView = (TextView) itemView.findViewById(R.id.list_item_crime_title_text_view);
+            mResponsibleTextView = (TextView) itemView.findViewById(R.id.list_item_crime_responsible_text_view);
             mAuthorTextView = (TextView) itemView.findViewById(R.id.list_item_crime_author_text_view);
-            mDateTextView = (TextView) itemView.findViewById(R.id.list_item_crime_date_text_view);
+            mThemeTextView = (TextView) itemView.findViewById(R.id.list_item_crime_theme_text_view);
+            mCategoryTextView = (TextView) itemView.findViewById(R.id.list_item_crime_category_text_view);
             mSolvedCheckBox = (CheckBox) itemView.findViewById(R.id.list_item_crime_solved_check_box);
         }
         @Override
         public void onClick(View v){
-            Toast.makeText(getActivity(),
-                    mCrime.getTitle()+" clicked!", Toast.LENGTH_SHORT)
-                    .show();
+            Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getId());
+            startActivity(intent);
         }
     }
 
