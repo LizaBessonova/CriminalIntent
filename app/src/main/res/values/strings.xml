@@ -3,5 +3,6 @@
     <string name="app_name">CriminalIntent</string>
     <string name="title_activity_crime">CrimeActivity</string>
     <string name="crime_details_label">Details</string>
+    <string name="crime_message_label">Message</string>
     <string name="crime_solved_label">Solved?</string>
 </resources>

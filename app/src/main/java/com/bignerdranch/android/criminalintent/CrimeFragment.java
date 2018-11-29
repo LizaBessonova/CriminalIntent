@@ -49,6 +49,9 @@ public class CrimeFragment extends Fragment {
         mThemeTextView = (TextView)v.findViewById(R.id.crime_theme);
         mThemeTextView.setText(mCrime.getTheme());
 
+        mCategoryTextView = (TextView)v.findViewById(R.id.crime_category);
+        mCategoryTextView.setText(mCrime.getCategory());
+
         mDateButton = (Button)v.findViewById(R.id.crime_date);
         //mDateButton.setText(mCrime.getDate().toString());
         mDateButton.setEnabled(false);
