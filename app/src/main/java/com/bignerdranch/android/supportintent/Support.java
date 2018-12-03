@@ -1,9 +1,9 @@
-package com.bignerdranch.android.criminalintent;
+package com.bignerdranch.android.supportintent;
 
 import java.util.Date;
 import java.util.UUID;
 
-public class Crime {
+public class Support {
     private UUID mId;
     private String mResponsible;
     private String mAuthor;
@@ -47,7 +47,7 @@ public class Crime {
         return mId;
     }
 
-    public Crime(){
+    public Support(){
         //generaciya unikal'nogo identifikatora
         mId = UUID.randomUUID();
         mDate = new Date();

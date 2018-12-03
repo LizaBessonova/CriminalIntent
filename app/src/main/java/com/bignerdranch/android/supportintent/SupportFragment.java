@@ -1,10 +1,7 @@
-package com.bignerdranch.android.criminalintent;
+package com.bignerdranch.android.supportintent;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,15 +9,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.Date;
 import java.util.UUID;
 
-public class CrimeFragment extends Fragment {
+public class SupportFragment extends Fragment {
 
-    private Crime mCrime;
+    private Support mSupport;
     private TextView mAuthorTextView;
     private TextView mResponsibleTextView;
     private TextView mThemeTextView;
@@ -31,44 +27,44 @@ public class CrimeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UUID crimeId = (UUID) getActivity().getIntent()
-                .getSerializableExtra(CrimeActivity.EXTRA_CRIME_ID);
-        mCrime = CrimeLab.get(getActivity()).getCrime(crimeId);
+        UUID supportId = (UUID) getActivity().getIntent()
+                .getSerializableExtra(SupportActivity.EXTRA_SUPPORT_ID);
+        mSupport = SupportLab.get(getActivity()).getSupport(supportId);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_crime, container, false);
+        View v = inflater.inflate(R.layout.fragment_support, container, false);
 
-        mAuthorTextView = (TextView)v.findViewById(R.id.crime_author);
-        mAuthorTextView.setText(mCrime.getAuthor());
+        mAuthorTextView = (TextView)v.findViewById(R.id.support_author);
+        mAuthorTextView.setText(mSupport.getAuthor());
 
-        mResponsibleTextView = (TextView)v.findViewById(R.id.crime_responsible);
-        mResponsibleTextView.setText(mCrime.getResponsible());
+        mResponsibleTextView = (TextView)v.findViewById(R.id.support_responsible);
+        mResponsibleTextView.setText(mSupport.getResponsible());
 
-        mThemeTextView = (TextView)v.findViewById(R.id.crime_theme);
-        mThemeTextView.setText(mCrime.getTheme());
+        mThemeTextView = (TextView)v.findViewById(R.id.support_theme);
+        mThemeTextView.setText(mSupport.getTheme());
 
-        mCategoryTextView = (TextView)v.findViewById(R.id.crime_category);
-        mCategoryTextView.setText(mCrime.getCategory());
+        mCategoryTextView = (TextView)v.findViewById(R.id.support_category);
+        mCategoryTextView.setText(mSupport.getCategory());
 
-        mDateButton = (Button)v.findViewById(R.id.crime_date);
-        //mDateButton.setText(mCrime.getDate().toString());
+        mDateButton = (Button)v.findViewById(R.id.support_date);
+        //mDateButton.setText(mSupport.getDate().toString());
         mDateButton.setEnabled(false);
         updateDateAndTime();
 
-        mSolvedCheckBox = (CheckBox)v.findViewById(R.id.crime_solved);
-        mSolvedCheckBox.setChecked(mCrime.isSolved());
+        mSolvedCheckBox = (CheckBox)v.findViewById(R.id.support_solved);
+        mSolvedCheckBox.setChecked(mSupport.isSolved());
         mSolvedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                mCrime.setSolved(b);
+                mSupport.setSolved(b);
             }
         });
         return v;
     }
     private void updateDateAndTime() {
-        Date d = mCrime.getDate();
+        Date d = mSupport.getDate();
         CharSequence c = DateFormat.format("EEEE, MMM dd, yyyy", d);
         //CharSequence t = DateFormat.format("h:mm", d);
         mDateButton.setText(c);

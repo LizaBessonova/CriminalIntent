@@ -6,43 +6,43 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <CheckBox
-        android:id="@+id/list_item_crime_solved_check_box"
+        android:id="@+id/list_item_support_solved_check_box"
         android:layout_width="wrap_content"
         android:layout_height="107dp"
         android:layout_alignParentRight="true"
         android:padding="4dp" />
     <TextView
-        android:id="@+id/list_item_crime_author_text_view"
+        android:id="@+id/list_item_support_author_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/list_item_crime_solved_check_box"
+        android:layout_toLeftOf="@id/list_item_support_solved_check_box"
         android:textStyle="bold"
         android:padding="4dp"
         tools:text="Author"/>
     <TextView
-        android:id="@+id/list_item_crime_responsible_text_view"
+        android:id="@+id/list_item_support_responsible_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/list_item_crime_solved_check_box"
-        android:layout_below="@+id/list_item_crime_author_text_view"
+        android:layout_toLeftOf="@id/list_item_support_solved_check_box"
+        android:layout_below="@+id/list_item_support_author_text_view"
         android:textStyle="bold"
         android:padding="4dp"
         tools:text="Responsible"/>
     <TextView
-        android:id="@+id/list_item_crime_theme_text_view"
+        android:id="@+id/list_item_support_theme_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/list_item_crime_solved_check_box"
-        android:layout_below="@+id/list_item_crime_responsible_text_view"
+        android:layout_toLeftOf="@id/list_item_support_solved_check_box"
+        android:layout_below="@+id/list_item_support_responsible_text_view"
         android:textStyle="bold"
         android:padding="4dp"
         tools:text="Theme"/>
     <TextView
-        android:id="@+id/list_item_crime_category_text_view"
+        android:id="@+id/list_item_support_category_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/list_item_crime_solved_check_box"
-        android:layout_below="@+id/list_item_crime_theme_text_view"
+        android:layout_toLeftOf="@id/list_item_support_solved_check_box"
+        android:layout_below="@+id/list_item_support_theme_text_view"
         android:padding="4dp"
         tools:text="Category"/>
 

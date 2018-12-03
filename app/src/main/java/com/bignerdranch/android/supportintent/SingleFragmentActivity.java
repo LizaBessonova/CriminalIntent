@@ -1,4 +1,4 @@
-package com.bignerdranch.android.criminalintent;
+package com.bignerdranch.android.supportintent;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

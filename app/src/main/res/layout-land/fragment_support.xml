@@ -10,27 +10,27 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/crime_author"
+            android:id="@+id/support_author"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
         <TextView
-            android:id="@+id/crime_responsible"
+            android:id="@+id/support_responsible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
         <TextView
-            android:id="@+id/crime_theme"
+            android:id="@+id/support_theme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
         <TextView
-            android:id="@+id/crime_category"
+            android:id="@+id/support_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
         <TextView
-            android:text="@string/crime_details_label"
+            android:text="@string/support_details_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="?android:listSeparatorTextViewStyle"
@@ -43,17 +43,17 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp">
             <Button
-                android:id="@+id/crime_date"
+                android:id="@+id/support_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 />
             <CheckBox
-                android:id="@+id/crime_solved"
+                android:id="@+id/support_solved"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/crime_solved_label"
+                android:text="@string/support_solved_label"
                 />
         </LinearLayout>
 
