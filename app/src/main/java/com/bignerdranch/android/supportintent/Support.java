@@ -9,6 +9,7 @@ public class Support {
     private String mAuthor;
     private String mTheme;
     private String mCategory;
+    private String mAuthorMessage;
     private Date mDate;
     private boolean mSolved;
 
@@ -39,9 +40,11 @@ public class Support {
     public String getTheme() { return mTheme; }
     public void setTheme(String theme) { mTheme = theme; }
 
-
     public String getCategory() { return mCategory; }
     public void setCategory(String category) { mCategory = category; }
+
+    public String getAuthorMessage() { return mAuthorMessage; }
+    public void setAuthorMessage(String authorMessage) { mAuthorMessage = authorMessage; }
 
     public UUID getId() {
         return mId;

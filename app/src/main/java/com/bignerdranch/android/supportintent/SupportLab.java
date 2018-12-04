@@ -21,6 +21,7 @@ public class SupportLab {
         for (int i=0;i<10;i++){
             Support support = new Support();
             support.setAuthor("Author "+i);
+            support.setAuthorMessage("Author Message "+i);
             support.setResponsible("Responsible #"+i);
             support.setTheme("Theme #"+i);
             support.setCategory("Category #"+i);
