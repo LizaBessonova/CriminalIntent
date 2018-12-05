@@ -5,4 +5,9 @@
     <string name="support_details_label">Details</string>
     <string name="support_message_label">Message</string>
     <string name="support_solved_label">Solved?</string>
+    <string name="username_label_text">User Name</string>
+    <string name="username_field_hint">Enter User Name</string>
+    <string name="password_label_text">Password</string>
+    <string name="password_field_hint">Enter Password</string>
+    <string name="login_button_text">Login</string>
 </resources>
