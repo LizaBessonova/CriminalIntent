@@ -24,7 +24,15 @@ public class SupportListFragmentMessage extends Fragment {
 
         mMessageRecyclerView = (RecyclerView)v.findViewById(R.id.support_recycler_view_message);
         mMessageRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));;
+        updateUI();
         return v;
+    }
+
+    private void updateUI(){
+        MessageLab messageLab = MessageLab.get(getActivity());
+        List<Support> supports = messageLab.getSupports();
+        mAdapter = new SupportListFragmentMessage.MessageAdapter(supports);
+        mMessageRecyclerView.setAdapter(mAdapter);
     }
 
     public  class SupportHolder extends RecyclerView.ViewHolder{
