@@ -23,6 +23,7 @@ public class SupportFragment extends Fragment {
     private TextView mCategoryTextView;
     private Button mDateButton;
     private CheckBox mSolvedCheckBox;
+    private TextView mAuthorMessage;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,8 @@ public class SupportFragment extends Fragment {
                 mSupport.setSolved(b);
             }
         });
+
+        
         return v;
     }
     private void updateDateAndTime() {

@@ -17,7 +17,5 @@ public class SupportActivity extends SingleFragmentActivity {
     }
 
     @Override
-    protected Fragment createFragment(){
-        return new SupportFragment();
-    }
+    protected Fragment createFragment(){return new SupportFragment();}
 }

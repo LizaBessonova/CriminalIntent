@@ -14,7 +14,7 @@ import android.widget.TextView;
 import java.util.List;
 
 public class SupportListFragmentMessage extends Fragment {
-    private RecyclerView mMessagetRecyclerView;
+    private RecyclerView mMessageRecyclerView;
     private MessageAdapter mAdapter;
 
     @Override
@@ -22,17 +22,9 @@ public class SupportListFragmentMessage extends Fragment {
                              Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.fragment_support,container,false);
 
-        mMessagetRecyclerView = (RecyclerView)v.findViewById(R.id.support_recycler_view_message);
-        mMessagetRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));;
-        updateUI();
+        mMessageRecyclerView = (RecyclerView)v.findViewById(R.id.support_recycler_view_message);
+        mMessageRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));;
         return v;
-    }
-
-    private void updateUI(){
-        SupportLab supportLab = SupportLab.get(getActivity());
-        List<Support> supports = supportLab.getSupports();
-        mAdapter = new MessageAdapter(supports);
-        mMessagetRecyclerView.setAdapter(mAdapter);
     }
 
     public  class SupportHolder extends RecyclerView.ViewHolder{

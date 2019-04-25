@@ -6,25 +6,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class SupportLab {
-    private static SupportLab sSupportLab;
+public class MessageLab {
+    private static MessageLab sMessageLab;
     private List<Support> mSupports;
 
-    public static SupportLab get(Context context){
-        if (sSupportLab == null) {
-            sSupportLab = new SupportLab(context);
+    public static MessageLab get(Context context){
+        if (sMessageLab == null) {
+            sMessageLab = new MessageLab(context);
         }
-        return sSupportLab;
+        return sMessageLab;
     }
-    private SupportLab(Context context){
+    private MessageLab(Context context){
         mSupports = new ArrayList<>();
-        for (int i=0;i<3;i++){
+        for (int i=0;i<4;i++){
             Support support = new Support();
-            support.setAuthor("Author "+i);
-            support.setResponsible("Responsible #"+i);
-            support.setTheme("Theme #"+i);
-            support.setCategory("Category #"+i);
-            support.setSolved(i%2==0);
+            support.setAuthorMessage("Author Message "+i);
             mSupports.add(support);
         }
     }
