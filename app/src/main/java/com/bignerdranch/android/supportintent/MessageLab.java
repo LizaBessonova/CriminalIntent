@@ -20,7 +20,7 @@ public class MessageLab {
         mSupports = new ArrayList<>();
         for (int i=0;i<4;i++){
             Support support = new Support();
-            support.setAuthorMessage("Author Message "+i);
+            support.setAuthorMessage("Author Message #"+i);
             mSupports.add(support);
         }
     }
@@ -29,12 +29,4 @@ public class MessageLab {
         return mSupports;
     }
 
-    public Support getSupport(UUID id){
-        for (Support support : mSupports){
-            if (support.getId().equals(id)){
-                return support;
-            }
-        }
-        return null;
-    }
 }

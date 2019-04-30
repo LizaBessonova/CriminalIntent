@@ -18,7 +18,7 @@ public class SupportLab {
     }
     private SupportLab(Context context){
         mSupports = new ArrayList<>();
-        for (int i=0;i<3;i++){
+        for (int i=0;i<2;i++){
             Support support = new Support();
             support.setAuthor("Author "+i);
             support.setResponsible("Responsible #"+i);

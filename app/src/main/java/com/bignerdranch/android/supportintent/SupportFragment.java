@@ -1,7 +1,10 @@
 package com.bignerdranch.android.supportintent;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,11 +15,13 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 public class SupportFragment extends Fragment {
 
     private Support mSupport;
+    private Support mMessage;
     private TextView mAuthorTextView;
     private TextView mResponsibleTextView;
     private TextView mThemeTextView;
@@ -24,6 +29,9 @@ public class SupportFragment extends Fragment {
     private Button mDateButton;
     private CheckBox mSolvedCheckBox;
     private TextView mAuthorMessage;
+
+    private RecyclerView mSupportRecyclerViewMessage;
+    private SupportAdapterMessage mAdapterMessage;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,6 +44,8 @@ public class SupportFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_support, container, false);
+        mSupportRecyclerViewMessage = (RecyclerView)v.findViewById(R.id.support_recycler_view_message);
+        mSupportRecyclerViewMessage.setLayoutManager(new LinearLayoutManager(getActivity()));;
 
         mAuthorTextView = (TextView)v.findViewById(R.id.support_author);
         mAuthorTextView.setText(mSupport.getAuthor());
@@ -63,9 +73,57 @@ public class SupportFragment extends Fragment {
             }
         });
 
-        
+        updateUI();
         return v;
     }
+
+    private void updateUI(){
+        MessageLab messageLab = MessageLab.get(getActivity());
+        List<Support> supports = messageLab.getSupports();
+        mAdapterMessage = new SupportAdapterMessage(supports);
+        mSupportRecyclerViewMessage.setAdapter(mAdapterMessage);
+    }
+//Создание списка сообщений
+    private class SupportAdapterMessage extends RecyclerView.Adapter<SupportHolderMessage>{
+        private List<Support> mSupports;
+        public SupportAdapterMessage(List<Support> supports){
+            mSupports = supports;
+        }
+        @Override
+        public SupportHolderMessage onCreateViewHolder(ViewGroup parent, int viewType) {
+            LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+            View v = layoutInflater
+                    .inflate(R.layout.list_item_message,parent,false);
+            return new SupportHolderMessage(v);
+        }
+        @Override
+        public void onBindViewHolder(SupportHolderMessage holder, int position) {
+            Support support = mSupports.get(position);
+            holder.bindSupportMessage(support);
+        }
+        @Override
+        public int getItemCount() {
+            return mSupports.size();
+        }
+    }
+
+    public  class SupportHolderMessage extends RecyclerView.ViewHolder {
+        private TextView mAuthorMessageTextView;
+        private Support mSupport;
+
+        public void bindSupportMessage(Support support){
+            mSupport = support;
+            mAuthorMessageTextView.setText(mSupport.getAuthorMessage());
+        }
+
+        public SupportHolderMessage(View itemView){
+            super(itemView);
+            mAuthorMessageTextView = (TextView) itemView.findViewById(R.id.list_item_support_author_message_text_view);
+        }
+    }
+
+
+
     private void updateDateAndTime() {
         Date d = mSupport.getDate();
         CharSequence c = DateFormat.format("EEEE, MMM dd, yyyy", d);

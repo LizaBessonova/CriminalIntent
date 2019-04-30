@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/layout_style"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_marginBottom="16dp"
+    android:layout_marginTop="16dp"
+    android:background="@drawable/layout_style">
 
     <TextView
         android:id="@+id/list_item_support_author_message_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="8dp"
         android:textStyle="bold"
-        android:padding="4dp"
-        tools:text="AuthorMessage"/>
+        tools:text="AuthorMessage" />
 </RelativeLayout>
