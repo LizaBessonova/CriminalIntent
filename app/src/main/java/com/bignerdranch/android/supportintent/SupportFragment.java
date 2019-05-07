@@ -42,6 +42,14 @@ public class SupportFragment extends Fragment {
     }
 
     @Override
+    public void onPause(){
+        super.onPause();
+
+        SupportLab.get(getActivity())
+                .updateSupport(mSupport);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_support, container, false);
         mSupportRecyclerViewMessage = (RecyclerView)v.findViewById(R.id.support_recycler_view_message);

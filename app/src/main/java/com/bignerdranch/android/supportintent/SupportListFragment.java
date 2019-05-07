@@ -1,5 +1,6 @@
 package com.bignerdranch.android.supportintent;
 
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -89,5 +90,7 @@ public class SupportListFragment extends Fragment {
         public int getItemCount() {
             return mSupports.size();
         }
+
+        public void setSupports(List<Support> supports){mSupports=supports;}
     }
 }

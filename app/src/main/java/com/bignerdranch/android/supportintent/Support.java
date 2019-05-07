@@ -52,7 +52,11 @@ public class Support {
 
     public Support(){
         //generaciya unikal'nogo identifikatora
-        mId = UUID.randomUUID();
+        this(UUID.randomUUID());
+    }
+
+    public Support(UUID id){
+        mId = id;
         mDate = new Date();
     }
 }
