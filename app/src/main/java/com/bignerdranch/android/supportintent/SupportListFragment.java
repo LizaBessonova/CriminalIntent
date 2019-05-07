@@ -4,9 +4,13 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -15,8 +19,68 @@ import android.widget.TextView;
 import java.util.List;
 
 public class SupportListFragment extends Fragment {
+    private static final String SAVED_SUBTITLE_VISIBLE = "subtitle";
     private RecyclerView mSupportRecyclerView;
     private SupportAdapter mAdapter;
+    private boolean mSubtitleVisible;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(SAVED_SUBTITLE_VISIBLE, mSubtitleVisible);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+        super.onCreateOptionsMenu(menu,inflater);
+        inflater.inflate(R.menu.fragment_support_list, menu);
+
+        MenuItem subtitleItem = menu.findItem(R.id.menu_item_show_subtitle);
+        if (mSubtitleVisible){
+            subtitleItem.setTitle(R.string.hide_subtitle);
+        } else {
+            subtitleItem.setTitle(R.string.show_subtitle);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.menu_item_new_support:
+                Support support = new Support();
+                SupportLab.get(getActivity()).addSupport(support);
+                Intent intent = SupportActivity
+                        .newIntent(getActivity(), support.getId());
+                startActivity(intent);
+                return true;
+            case R.id.menu_item_show_subtitle:
+                mSubtitleVisible = !mSubtitleVisible;
+                getActivity().invalidateOptionsMenu();
+                updateSubtitle();
+                return true;
+             default:
+                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void updateSubtitle(){
+        SupportLab supportLab = SupportLab.get(getActivity());
+        int supportCount = supportLab.getSupports().size();
+        String subtitle = getString(R.string.subtitle_format, supportCount);
+
+        if (!mSubtitleVisible){
+            subtitle = null;
+        }
+
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        activity.getSupportActionBar().setSubtitle(subtitle);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -25,15 +89,31 @@ public class SupportListFragment extends Fragment {
 
         mSupportRecyclerView = (RecyclerView)v.findViewById(R.id.support_recycler_view);
         mSupportRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));;
+
+        if (savedInstanceState != null){
+            mSubtitleVisible = savedInstanceState.getBoolean
+                    (SAVED_SUBTITLE_VISIBLE);
+        }
         updateUI();
         return v;
     }
+
 
     private void updateUI(){
         SupportLab supportLab = SupportLab.get(getActivity());
         List<Support> supports = supportLab.getSupports();
         mAdapter = new SupportAdapter(supports);
         mSupportRecyclerView.setAdapter(mAdapter);
+
+        if (mAdapter == null){
+            mAdapter = new SupportAdapter(supports);
+            mSupportRecyclerView.setAdapter(mAdapter);
+        } else {
+            mAdapter.setSupports(supports);
+            mAdapter.notifyDataSetChanged();
+        }
+
+        updateSubtitle();
     }
 
     public  class SupportHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

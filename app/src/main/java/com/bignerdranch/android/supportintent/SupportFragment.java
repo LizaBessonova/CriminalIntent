@@ -20,6 +20,8 @@ import java.util.UUID;
 
 public class SupportFragment extends Fragment {
 
+    private static final String ARG_SUPPORT_ID = "support_id";
+
     private Support mSupport;
     private Support mMessage;
     private TextView mAuthorTextView;
@@ -33,11 +35,19 @@ public class SupportFragment extends Fragment {
     private RecyclerView mSupportRecyclerViewMessage;
     private SupportAdapterMessage mAdapterMessage;
 
+    public static SupportFragment newInstance(UUID supportId){
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_SUPPORT_ID, supportId);
+
+        SupportFragment fragment = new SupportFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UUID supportId = (UUID) getActivity().getIntent()
-                .getSerializableExtra(SupportActivity.EXTRA_SUPPORT_ID);
+        UUID supportId = (UUID) getArguments().getSerializable(ARG_SUPPORT_ID);
         mSupport = SupportLab.get(getActivity()).getSupport(supportId);
     }
 
@@ -91,7 +101,8 @@ public class SupportFragment extends Fragment {
         mAdapterMessage = new SupportAdapterMessage(supports);
         mSupportRecyclerViewMessage.setAdapter(mAdapterMessage);
     }
-//Создание списка сообщений
+
+    //Создание списка сообщений
     private class SupportAdapterMessage extends RecyclerView.Adapter<SupportHolderMessage>{
         private List<Support> mSupports;
         public SupportAdapterMessage(List<Support> supports){

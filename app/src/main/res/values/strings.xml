@@ -5,6 +5,12 @@
     <string name="support_details_label">Details</string>
     <string name="support_message_label">Message</string>
     <string name="support_solved_label">Solved?</string>
+
+    <string name="new_support">New Support</string>
+    <string name="show_subtitle">Show Subtitle</string>
+    <string name="hide_subtitle">Hide Subtitle</string>
+    <string name="subtitle_format">%1$s support</string>
+
     <string name="username_label_text">User Name</string>
     <string name="username_field_hint">Enter User Name</string>
     <string name="password_label_text">Password</string>

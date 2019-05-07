@@ -29,14 +29,6 @@ public class SupportLab {
         mContext = context.getApplicationContext();
         mDatabase = new SupportBaseHelper(mContext)
                 .getWritableDatabase();
-        for (int i=0;i<2;i++){
-            Support support = new Support();
-            support.setAuthor("Author "+i);
-            support.setResponsible("Responsible #"+i);
-            support.setTheme("Theme #"+i);
-            support.setCategory("Category #"+i);
-            support.setSolved(i%2==0);
-        }
     }
 
     public void addSupport(Support s){
