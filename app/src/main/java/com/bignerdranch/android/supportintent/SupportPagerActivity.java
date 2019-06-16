@@ -8,11 +8,12 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 
 import java.util.List;
 import java.util.UUID;
 
-public class SupportPagerActivity extends FragmentActivity {
+public class SupportPagerActivity extends AppCompatActivity {
     private static final String EXTRA_SUPPORT_ID =
             "com.bignerdranch.android.supportintent.support_id";
 
@@ -20,7 +21,7 @@ public class SupportPagerActivity extends FragmentActivity {
     private List<Support> mSupports;
 
 
-    public static Intent newInstance(Context packageContext, UUID supportId){
+    public static Intent newIntent(Context packageContext, UUID supportId){
         Intent intent = new Intent(packageContext, SupportPagerActivity.class);
         intent.putExtra(EXTRA_SUPPORT_ID, supportId);
         return intent;
@@ -30,7 +31,9 @@ public class SupportPagerActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_support_pager);
-        UUID supportId = (UUID) getIntent().getSerializableExtra(EXTRA_SUPPORT_ID);
+
+        UUID supportId = (UUID) getIntent()
+                .getSerializableExtra(EXTRA_SUPPORT_ID);
 
         mViewPager = (ViewPager) findViewById(R.id.activity_support_pager_view_pager);
 

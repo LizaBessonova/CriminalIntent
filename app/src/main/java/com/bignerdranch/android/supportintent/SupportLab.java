@@ -19,6 +19,8 @@ public class SupportLab {
     private Context mContext;
     private SQLiteDatabase mDatabase;
 
+    private List<Support> mSupports;
+
     public static SupportLab get(Context context){
         if (sSupportLab == null) {
             sSupportLab = new SupportLab(context);
@@ -26,69 +28,79 @@ public class SupportLab {
         return sSupportLab;
     }
     private SupportLab(Context context){
-        mContext = context.getApplicationContext();
-        mDatabase = new SupportBaseHelper(mContext)
-                .getWritableDatabase();
+        mSupports= new ArrayList<>();
+
+//        mContext = context.getApplicationContext();
+//        mDatabase = new SupportBaseHelper(mContext)
+//                .getWritableDatabase();
     }
 
     public void addSupport(Support s){
-        ContentValues values = getContentValies(s);
-
-        mDatabase.insert(SupportTable.NAME, null, values);
+        mSupports.add(s);
+//        ContentValues values = getContentValies(s);
+//
+//        mDatabase.insert(SupportTable.NAME, null, values);
     }
 
     public List<Support> getSupports(){
-        List<Support> supports = new ArrayList<>();
-        SupportCursorWrapper cursor = querySupports(null,null);
-
-        try{
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()){
-                supports.add(cursor.getSupport());
-            }
-        } finally {
-            cursor.close();
-        }
-        return supports;
+        return mSupports;
+//        List<Support> supports = new ArrayList<>();
+//        SupportCursorWrapper cursor = querySupports(null,null);
+//
+//        try{
+//            cursor.moveToFirst();
+//            while (!cursor.isAfterLast()){
+//                supports.add(cursor.getSupport());
+//            }
+//        } finally {
+//            cursor.close();
+//        }
+//        return supports;
     }
 
     public Support getSupport(UUID id){
-        SupportCursorWrapper cursor = querySupports(
-                SupportTable.Cols.UUID + " = ?",
-                new String[] {id.toString()}
-        );
-
-        try {
-            if (cursor.getCount() == 0){
-                return null;
+        for(Support support : mSupports){
+            if (support.getId().equals(id)){
+                return support;
             }
-            cursor.moveToFirst();
-            return cursor.getSupport();
-        } finally {
-            cursor.close();
         }
+        return null;
+//        SupportCursorWrapper cursor = querySupports(
+//                SupportTable.Cols.UUID + " = ?",
+//                new String[] {id.toString()}
+//        );
+//
+//        try {
+//            if (cursor.getCount() == 0){
+//                return null;
+//            }
+//            cursor.moveToFirst();
+//            return cursor.getSupport();
+//        } finally {
+//            cursor.close();
+//        }
     }
 
-    public void updateSupport(Support support){
-        String uuidString = support.getId().toString();
-        ContentValues values = getContentValies(support);
+//    public void updateSupport(Support support){
+//        String uuidString = support.getId().toString();
+//        ContentValues values = getContentValies(support);
+//
+//        mDatabase.update(SupportTable.NAME, values,
+//                SupportTable.Cols.UUID + " = ?",
+//                new String[]{ uuidString });
+//    }
 
-        mDatabase.update(SupportTable.NAME, values,
-                SupportTable.Cols.UUID + " = ?",
-                new String[]{ uuidString });
-    }
-
-    private static ContentValues getContentValies(Support support) {
-        ContentValues values = new ContentValues();
-        values.put(SupportTable.Cols.UUID, support.getId().toString());
-        values.put(SupportTable.Cols.AUTHOR, support.getAuthor().toString());
-        values.put(SupportTable.Cols.RESPONSIBLE, support.getResponsible().toString());
-        values.put(SupportTable.Cols.THEME, support.getTheme().toString());
-        values.put(SupportTable.Cols.CATEGORY, support.getCategory().toString());
-        values.put(SupportTable.Cols.SOLVED, support.isSolved() ? 1:0);
-
-        return values;
-    }
+//    private static ContentValues getContentValies(Support support) {
+//        ContentValues values = new ContentValues();
+//        values.put(SupportTable.Cols.UUID, support.getId().toString());
+//        values.put(SupportTable.Cols.AUTHOR, support.getAuthor().toString());
+//        values.put(SupportTable.Cols.RESPONSIBLE, support.getResponsible().toString());
+//        values.put(SupportTable.Cols.THEME, support.getTheme().toString());
+//        values.put(SupportTable.Cols.CATEGORY, support.getCategory().toString());
+//        values.put(SupportTable.Cols.SOLVED, support.isSolved() ? 1:0);
+//
+//        return values;
+//    }
 
     private SupportCursorWrapper querySupports(String whereClause, String[] whereArgs){
         Cursor cursor = mDatabase.query(

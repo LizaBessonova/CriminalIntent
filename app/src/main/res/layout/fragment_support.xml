@@ -15,25 +15,25 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
+        <EditText
             android:id="@+id/support_author"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp" />
 
-        <TextView
+        <EditText
             android:id="@+id/support_responsible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp" />
 
-        <TextView
+        <EditText
             android:id="@+id/support_theme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp" />
 
-        <TextView
+        <EditText
             android:id="@+id/support_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

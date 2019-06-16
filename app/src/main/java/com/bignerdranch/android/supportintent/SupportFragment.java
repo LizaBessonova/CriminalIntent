@@ -1,5 +1,6 @@
 package com.bignerdranch.android.supportintent;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.Date;
@@ -24,10 +26,10 @@ public class SupportFragment extends Fragment {
 
     private Support mSupport;
     private Support mMessage;
-    private TextView mAuthorTextView;
-    private TextView mResponsibleTextView;
-    private TextView mThemeTextView;
-    private TextView mCategoryTextView;
+    private EditText mAuthorTextView;
+    private EditText mResponsibleTextView;
+    private EditText mThemeTextView;
+    private EditText mCategoryTextView;
     private Button mDateButton;
     private CheckBox mSolvedCheckBox;
     private TextView mAuthorMessage;
@@ -51,13 +53,13 @@ public class SupportFragment extends Fragment {
         mSupport = SupportLab.get(getActivity()).getSupport(supportId);
     }
 
-    @Override
-    public void onPause(){
-        super.onPause();
-
-        SupportLab.get(getActivity())
-                .updateSupport(mSupport);
-    }
+//    @Override
+////    public void onPause(){
+////        super.onPause();
+////
+////        SupportLab.get(getActivity())
+////                .updateSupport(mSupport);
+////    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -65,16 +67,16 @@ public class SupportFragment extends Fragment {
         mSupportRecyclerViewMessage = (RecyclerView)v.findViewById(R.id.support_recycler_view_message);
         mSupportRecyclerViewMessage.setLayoutManager(new LinearLayoutManager(getActivity()));;
 
-        mAuthorTextView = (TextView)v.findViewById(R.id.support_author);
+        mAuthorTextView = (EditText)v.findViewById(R.id.support_author);
         mAuthorTextView.setText(mSupport.getAuthor());
 
-        mResponsibleTextView = (TextView)v.findViewById(R.id.support_responsible);
+        mResponsibleTextView = (EditText)v.findViewById(R.id.support_responsible);
         mResponsibleTextView.setText(mSupport.getResponsible());
 
-        mThemeTextView = (TextView)v.findViewById(R.id.support_theme);
+        mThemeTextView = (EditText)v.findViewById(R.id.support_theme);
         mThemeTextView.setText(mSupport.getTheme());
 
-        mCategoryTextView = (TextView)v.findViewById(R.id.support_category);
+        mCategoryTextView = (EditText)v.findViewById(R.id.support_category);
         mCategoryTextView.setText(mSupport.getCategory());
 
         mDateButton = (Button)v.findViewById(R.id.support_date);
@@ -141,7 +143,9 @@ public class SupportFragment extends Fragment {
         }
     }
 
-
+    public void returnResult(){
+        getActivity().setResult(Activity.RESULT_OK,null);
+    }
 
     private void updateDateAndTime() {
         Date d = mSupport.getDate();

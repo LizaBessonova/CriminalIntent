@@ -19,21 +19,19 @@ import android.widget.TextView;
 import java.util.List;
 
 public class SupportListFragment extends Fragment {
+    private static final int REQUEST_SUPPORT = 1;
+
     private static final String SAVED_SUBTITLE_VISIBLE = "subtitle";
     private RecyclerView mSupportRecyclerView;
     private SupportAdapter mAdapter;
     private boolean mSubtitleVisible;
 
+    private TextView mAuthorTextWiew;
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState){
-        super.onSaveInstanceState(outState);
-        outState.putBoolean(SAVED_SUBTITLE_VISIBLE, mSubtitleVisible);
     }
 
     @Override
@@ -55,7 +53,7 @@ public class SupportListFragment extends Fragment {
             case R.id.menu_item_new_support:
                 Support support = new Support();
                 SupportLab.get(getActivity()).addSupport(support);
-                Intent intent = SupportActivity
+                Intent intent = SupportPagerActivity
                         .newIntent(getActivity(), support.getId());
                 startActivity(intent);
                 return true;
@@ -87,8 +85,10 @@ public class SupportListFragment extends Fragment {
                              Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.fragment_support_list,container,false);
 
-        mSupportRecyclerView = (RecyclerView)v.findViewById(R.id.support_recycler_view);
-        mSupportRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));;
+        mSupportRecyclerView = (RecyclerView)v
+                .findViewById(R.id.support_recycler_view);
+        mSupportRecyclerView.setLayoutManager(new LinearLayoutManager
+                (getActivity()));;
 
         if (savedInstanceState != null){
             mSubtitleVisible = savedInstanceState.getBoolean
@@ -98,22 +98,34 @@ public class SupportListFragment extends Fragment {
         return v;
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        updateUI();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(SAVED_SUBTITLE_VISIBLE, mSubtitleVisible);
+    }
 
     private void updateUI(){
         SupportLab supportLab = SupportLab.get(getActivity());
         List<Support> supports = supportLab.getSupports();
         mAdapter = new SupportAdapter(supports);
         mSupportRecyclerView.setAdapter(mAdapter);
+        
 
         if (mAdapter == null){
             mAdapter = new SupportAdapter(supports);
             mSupportRecyclerView.setAdapter(mAdapter);
         } else {
-            mAdapter.setSupports(supports);
-            mAdapter.notifyDataSetChanged();
+            //mAdapter.setSupports(supports);
+            //mAdapter.notifyItemChanged();
         }
 
-        updateSubtitle();
+        //updateSubtitle();
     }
 
     public  class SupportHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -144,8 +156,17 @@ public class SupportListFragment extends Fragment {
         }
         @Override
         public void onClick(View v){
-            Intent intent = SupportActivity.newIntent(getActivity(), mSupport.getId());
-            startActivity(intent);
+            Intent intent = SupportPagerActivity.newIntent(getActivity(),
+                    mSupport.getId());
+            startActivityForResult(intent, REQUEST_SUPPORT);
+        }
+
+        public void onActivityResult(int requestCode, int resultCode, Intent data){
+            if (requestCode == REQUEST_SUPPORT){
+                if(data == null){
+                    return;
+                }
+            }
         }
     }
 
