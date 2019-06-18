@@ -6,20 +6,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-class TiketLab {
-    private static TiketLab sTiketLab;
+class TiketLabClosed {
+    private static TiketLabClosed sTiketLabClosed;
     private List<Tiket> mTikets;
 
-    public static TiketLab get(Context context){
-        if (sTiketLab == null) {
-            sTiketLab = new TiketLab(context);
+    public static TiketLabClosed get(Context context){
+        if (sTiketLabClosed == null) {
+            sTiketLabClosed = new TiketLabClosed(context);
         }
-        return sTiketLab;
+        return sTiketLabClosed;
     }
 
-    private TiketLab(Context context){
+    private TiketLabClosed(Context context){
         mTikets = new ArrayList<>();
-        for (int i=0;i<10;i++){
+        for (int i=0;i<1;i++){
             Tiket tiket = new Tiket();
             tiket.setAuthor("Author "+i);
             tiket.setResponsible("Responsible #"+i);

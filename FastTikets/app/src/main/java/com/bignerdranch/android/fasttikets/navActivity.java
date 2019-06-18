@@ -18,7 +18,7 @@ import android.view.MenuItem;
 public class navActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    TiketFragment mTiketFragment;
+    TiketListFragmentClosed mTiketListFragmentClosed;
     TiketListFragment mTiketListFragment;
 
     @Override
@@ -48,7 +48,7 @@ public class navActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        mTiketFragment = new TiketFragment();
+        mTiketListFragmentClosed = new TiketListFragmentClosed();
         mTiketListFragment = new TiketListFragment();
     }
 
@@ -93,9 +93,9 @@ public class navActivity extends AppCompatActivity
         android.app.FragmentTransaction ftrans = getFragmentManager().beginTransaction();
 
         if (id == R.id.nav_open) {
-            //ftrans.replace(R.id.container, mTiketFragment);
-        } else if (id == R.id.nav_closed) {
             ftrans.replace(R.id.container, mTiketListFragment);
+        } else if (id == R.id.nav_closed) {
+            ftrans.replace(R.id.container, mTiketListFragmentClosed);
         } else if (id == R.id.nav_all) {
 
         } else if (id == R.id.nav_spam) {
