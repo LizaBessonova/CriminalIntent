@@ -1,21 +1,24 @@
 package com.bignerdranch.android.fasttikets;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TiketListFragment extends Fragment {
     private RecyclerView mTiketRecyclerView;
     private TiketAdapter mAdapter;
     private int mX;
+    protected String filterValue;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -25,7 +28,17 @@ public class TiketListFragment extends Fragment {
         mTiketRecyclerView = (RecyclerView)v.findViewById(R.id.tiket_r_v);
         mTiketRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));;
         updateUI();
+
         return v;
+    }
+
+    public static TiketListFragment newInstance(String filterValue) {
+        TiketListFragment fragment = new TiketListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("filterValue", filterValue);
+        fragment.setArguments(bundle);
+
+        return fragment;
     }
 
     @Override
@@ -37,11 +50,23 @@ public class TiketListFragment extends Fragment {
     private void updateUI(){
         TiketLab tiketLab = TiketLab.get(getActivity());
         List<Tiket> tikets = tiketLab.getTikets();
+        List<Tiket> filteredTikets = new ArrayList<>();
+        filterValue = (String)getArguments().getSerializable("filterValue");
+        if (filterValue.equals("all")){
+            filteredTikets = tiketLab.getTikets();
+        } else {
+            for (Tiket tiket : tikets){
+                if (filterValue.equals("open")){
+                    if (!tiket.getClosed()) filteredTikets.add(tiket);
+                } else if (tiket.getClosed()) filteredTikets.add(tiket);
+            }
+        }
+
         //if (mAdapter == null) {
-            mAdapter = new TiketAdapter(tikets);
-            mTiketRecyclerView.setAdapter(mAdapter);
+        mAdapter = new TiketAdapter(filteredTikets);
+        mTiketRecyclerView.setAdapter(mAdapter);
         //} else {
-            mAdapter.notifyItemChanged(mX);
+        mAdapter.notifyItemChanged(mX);
         //}
     }
 

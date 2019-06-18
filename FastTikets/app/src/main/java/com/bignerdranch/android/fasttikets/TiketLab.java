@@ -25,6 +25,8 @@ class TiketLab {
             tiket.setResponsible("Responsible #"+i);
             tiket.setTheme("Theme #"+i);
             tiket.setCategory("Category #"+i);
+            if (i % 2 == 0) tiket.setClosed(false);
+            else tiket.setClosed(true);
             mTikets.add(tiket);
         }
     }

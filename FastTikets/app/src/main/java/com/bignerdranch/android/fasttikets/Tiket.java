@@ -9,6 +9,7 @@ public class Tiket {
     private String mTheme;
     private String mCategory;
     private String mAuthorMessage;
+    private boolean mClosed;
 
     public String getAuthor() {return mAuthor;}
     public void setAuthor(String author) {mAuthor = author;}
@@ -28,6 +29,9 @@ public class Tiket {
 
     public String getAuthorMessage() { return mAuthorMessage; }
     public void setAuthorMessage(String authorMessage) { mAuthorMessage = authorMessage; }
+
+    public boolean getClosed() { return mClosed; }
+    public void setClosed(boolean type) { mClosed = type; }
 
     public UUID getId() {
         return mId;

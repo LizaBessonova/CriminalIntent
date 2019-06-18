@@ -18,7 +18,7 @@ import android.view.MenuItem;
 public class navActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    TiketListFragmentClosed mTiketListFragmentClosed;
+    private static final String DESCRIBABLE_KEY = "describable_key";
     TiketListFragment mTiketListFragment;
 
     @Override
@@ -48,8 +48,6 @@ public class navActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        mTiketListFragmentClosed = new TiketListFragmentClosed();
-        mTiketListFragment = new TiketListFragment();
     }
 
     @Override
@@ -90,14 +88,17 @@ public class navActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        android.app.FragmentTransaction ftrans = getFragmentManager().beginTransaction();
+        FragmentTransaction ftrans = getSupportFragmentManager().beginTransaction();
 
         if (id == R.id.nav_open) {
+            Fragment mTiketListFragment = TiketListFragment.newInstance("open");
             ftrans.replace(R.id.container, mTiketListFragment);
         } else if (id == R.id.nav_closed) {
-            ftrans.replace(R.id.container, mTiketListFragmentClosed);
+            Fragment mTiketListFragment = TiketListFragment.newInstance("closed");
+            ftrans.replace(R.id.container, mTiketListFragment);
         } else if (id == R.id.nav_all) {
-
+            Fragment mTiketListFragment = TiketListFragment.newInstance("all");
+            ftrans.replace(R.id.container, mTiketListFragment);
         } else if (id == R.id.nav_spam) {
 
         } ftrans.commit();
