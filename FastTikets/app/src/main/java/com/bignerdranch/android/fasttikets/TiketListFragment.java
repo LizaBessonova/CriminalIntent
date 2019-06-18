@@ -15,6 +15,7 @@ import java.util.List;
 public class TiketListFragment extends Fragment {
     private RecyclerView mTiketRecyclerView;
     private TiketAdapter mAdapter;
+    private int mX;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,12 +37,12 @@ public class TiketListFragment extends Fragment {
     private void updateUI(){
         TiketLab tiketLab = TiketLab.get(getActivity());
         List<Tiket> tikets = tiketLab.getTikets();
-        if (mAdapter == null) {
+        //if (mAdapter == null) {
             mAdapter = new TiketAdapter(tikets);
             mTiketRecyclerView.setAdapter(mAdapter);
-        } else {
-            mAdapter.notifyDataSetChanged();
-        }
+        //} else {
+            mAdapter.notifyItemChanged(mX);
+        //}
     }
 
     public  class TiketHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -69,6 +70,8 @@ public class TiketListFragment extends Fragment {
         }
         @Override
         public void onClick(View v){
+            mX = getAdapterPosition();
+
             Intent intent = TiketActivity.newIntent(getActivity(), mTiket.getId());
             startActivity(intent);
         }
